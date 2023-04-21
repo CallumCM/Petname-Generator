@@ -2,6 +2,7 @@ Generate unique petnames for any use case! Make sure other people are okay with 
 
 ## Make your own
 - [![Run on Repl.it](https://replit.com/badge/github/CallumCM/Petname-Generator)](https://replit.com/github/CallumCM/Petname-Generator)
+- Select HTML, CSS, and JS as the language
 - Simply edit `slots.json`, the spinner is procedurally generated and configurable in `slotmachine.js`
 
 Check it out at [petnames.geekveggie.dev](https://petnames.geekveggie.dev/)
