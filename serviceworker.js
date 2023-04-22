@@ -1,5 +1,5 @@
 // Basic serviceworker that caches slots.json and nothing else
-const VERSION = 3;
+const VERSION = 4;
 const CACHE_NAME = `slots-cache-v${VERSION}`;
 
 self.addEventListener('install', (event) => {
@@ -16,7 +16,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request).then((response) => {
-        return response || fetch(event.request);
+            return response || fetch(event.request);
         })
     );
 });
