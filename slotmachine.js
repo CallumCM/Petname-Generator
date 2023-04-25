@@ -1,5 +1,5 @@
-async function fetchSlots() {
-    const response = await fetch('/slots.json');
+async function fetchSlots(url = '/slots.json') {
+    const response = await fetch(url);
     const data = await response.json();
     return data;
 }
@@ -16,7 +16,7 @@ const SPIN_TIME_MS = `${SPIN_TIME}ms`;
 const MAX_SLOT_LENGTH = Math.max(...slots.map((slot) => slot.length));
 
 // No idea why but odd-length slots get offset up half a slot
-const SLOT_CONTAINER_HEIGHT = SLOT_HEIGHT * ~~(SLOT_SPIN_SIZE/2) - ((SLOT_SPIN_SIZE % 2 == 0) * (SLOT_HEIGHT/2));
+const SLOT_CONTAINER_HEIGHT = SLOT_HEIGHT * ~~(SLOT_SPIN_SIZE / 2) - ((SLOT_SPIN_SIZE % 2 == 0) * (SLOT_HEIGHT / 2));
 
 Array.prototype.shuffle = function() {
     var i = this.length;
@@ -108,7 +108,7 @@ function createSlotmachineDoors() {
 
     const shuffledSlots = shuffleSlots();
 
-    for(let i = 0; i < slots.length; i++) {
+    for (let i = 0; i < slots.length; i++) {
         door = document.createElement('div');
         door.className = "flex justify-center items-center overflow-hidden rounded-md p-1 m-1 bg-rose-50 border-6 border-pink-500 max-w-xs grow h-28";
         door.id = `door-${i}`;
@@ -123,7 +123,7 @@ function createSlotmachineDoors() {
         boxes = [];
         let box;
         for (let j = 0; j < shuffledSlots[i].length; j++) {
-            box = createBox(shuffledSlots[i][j], j==0);
+            box = createBox(shuffledSlots[i][j], j == 0);
             boxes.push(box);
         }
 
@@ -151,12 +151,12 @@ function resetSlotmachineDoors() {
     const shuffledSlots = shuffleSlots();
 
     // Loop through each boxContainer
-    for(let i = 0; i < boxContainers.length; i++) {
+    for (let i = 0; i < boxContainers.length; i++) {
         boxContainer = boxContainers[i];
         boxes = [];
         let box;
         for (let j = 0; j < shuffledSlots[i].length; j++) {
-            box = createBox(shuffledSlots[i][j], j==0);
+            box = createBox(shuffledSlots[i][j], j == 0);
             boxes.push(box);
         }
 
@@ -196,7 +196,7 @@ function spin() {
     boxContainers.forEach(boxContainer => {
         setY(boxContainer, -SLOT_CONTAINER_HEIGHT);
         animateY(boxContainer, SLOT_CONTAINER_HEIGHT);
-        
+
         boxContainer.addEventListener(
             'transitionstart',
             function() {
@@ -221,3 +221,54 @@ normalizeSlotLength();
 
 createSlotmachineDoors();
 document.getElementById('spin-slotmachine-button').addEventListener('click', spin);
+
+const titleElement = document.getElementById('title');
+const subtitleElement = document.getElementById('subtitle');
+const buttonTextElement = document.getElementById('slotmachine-button-text');
+const spinnerTextElement = document.getElementById('spinner-text');
+const doorContainer = document.getElementById('doors');
+
+const MAIN_TITLE = "What if it were easy...";
+const MAIN_SUBTITLE = "to be in a relationship?";
+const MAIN_BUTTON = "Put Your Love Into Words";
+const MAIN_SPINNER_TEXT = "I love you, my";
+
+const EVIL_TITLE = "What if it were easy...";
+const EVIL_SUBTITLE = "to leave a relationship?";
+const EVIL_BUTTON = "Put Your Hate Into Words";
+const EVIL_SPINNER_TEXT = "I despise you, my";
+
+const evilModeToggle = document.getElementById('evil-mode');
+let evilMode = false;
+evilModeToggle.onclick = async () => {
+    evilMode = evilModeToggle.checked;
+    if (evilMode) {
+        alert('This is all a slash joking. Do not take seriously. Do not fire me my employer in 20 years.');
+
+        titleElement.textContent = EVIL_TITLE;
+        subtitleElement.textContent = EVIL_SUBTITLE;
+        buttonTextElement.textContent = EVIL_BUTTON;
+        spinnerTextElement.textContent = EVIL_SPINNER_TEXT;
+
+        for (let i = 0; i < doorContainer.children.length; i++) {
+            doorContainer.removeChild(doorContainer.children[1]);
+        }
+
+        slots = await fetchSlots('/evil-slots.json');
+        normalizeSlotLength();
+        createSlotmachineDoors();
+    } else {
+        titleElement.textContent = MAIN_TITLE;
+        subtitleElement.textContent = MAIN_SUBTITLE;
+        buttonTextElement.textContent = MAIN_BUTTON;
+        spinnerTextElement.textContent = MAIN_SPINNER_TEXT;
+
+        for (let i = 0; i < doorContainer.children.length; i++) {
+            doorContainer.removeChild(doorContainer.children[1]);
+        }
+
+        slots = await fetchSlots('/slots.json');
+        normalizeSlotLength();
+        createSlotmachineDoors();
+    }
+};
