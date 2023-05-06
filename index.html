@@ -35,7 +35,7 @@
     </script>
 
     <!-- Development Mode -->
-    <script src="https://cdn.tailwindcss.com/3.3.1"></script>
+    <!--<script src="https://cdn.tailwindcss.com/3.3.1"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -44,10 +44,10 @@
                 }
             }
         }
-    </script>
+    </script>-->
 
     <!-- Production Modde -->
-    <!--<link rel="stylesheet" href="build.css" />-->
+    <link rel="stylesheet" href="build.css" />
 
     <script type="module" src="slotmachine.js"></script>
 </head>
@@ -63,7 +63,8 @@
 
     <div class="h-screen flex flex-col justify-center items-center px-6">
         <h1 id="title" class="text-white text-6xl font-bold tracking-wider mb-4">What if it were easy...</h1>
-        <h2 id="subtitle" class="text-gray-400 text-4xl font-bold tracking-wider font-serif">to be in a relationship?</h2>
+        <h2 id="subtitle" class="text-gray-400 text-4xl font-bold tracking-wider font-serif">to be in a relationship?
+        </h2>
     </div>
     <div class="text-center -translate-y-32">
         <p class="text-gray-600 text-xs">*with a person, not a pet</p>
@@ -81,8 +82,7 @@
 
         <button id="spin-slotmachine-button"
             class="drop-shadow-md hover:drop-shadow-xl m-1 relative inline-flex items-center justify-center p-0.5 overflow-hidden font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 dark:text-white active:scale-95 active:from-pink-600 active:to-orange-500 duration-100">
-            <span
-                id="slotmachine-button-text"
+            <span id="slotmachine-button-text"
                 class="relative px-11 py-7 text-3xl transition-all ease-in duration-100 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                 Put Your Love Into Words
             </span>
